@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="ne">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>पथरी शनिश्चरे नगरपालिका - नागरिक व्यवस्थापन</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .header {
+            background: white;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            background: #dc2626;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .title-section h1 {
+            color: #dc2626;
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .title-section p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .user-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            background: white;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .tab {
+            padding: 12px 30px;
+            border: none;
+            background: transparent;
+            color: #666;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .tab.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .tab:hover {
+            background: #f3f4f6;
+        }
+
+        .tab.active:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .content {
+            display: none;
+        }
+
+        .content.active {
+            display: block;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .stat-card h3 {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .stat-card .number {
+            font-size: 32px;
+            font-weight: bold;
+            color: #1f2937;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .card h2 {
+            color: #1f2937;
+            margin-bottom: 20px;
+            font-size: 22px;
+        }
+
+        .household-list {
+            display: grid;
+            gap: 15px;
+        }
+
+        .household-item {
+            padding: 20px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .household-item:hover {
+            border-color: #667eea;
+            background: #f9fafb;
+        }
+
+        .household-info h3 {
+            color: #1f2937;
+            margin-bottom: 5px;
+        }
+
+        .household-info p {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .badge.members {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .family-tree {
+            padding: 30px;
+            overflow-x: auto;
+        }
+
+        .tree {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .tree-node {
+            background: white;
+            border: 3px solid #667eea;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 15px;
+            min-width: 200px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .tree-node.head {
+            border-color: #dc2626;
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+        }
+
+        .tree-node.spouse {
+            border-color: #f59e0b;
+            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+        }
+
+        .tree-node.child {
+            border-color: #10b981;
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+        }
+
+        .node-photo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 32px;
+            font-weight: bold;
+        }
+
+        .node-name {
+            font-size: 18px;
+            font-weight: bold;
+            color: #1f2937;
+            margin-bottom: 5px;
+        }
+
+        .node-role {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .node-details {
+            font-size: 13px;
+            color: #6b7280;
+            line-height: 1.6;
+        }
+
+        .children-row {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .tree-connector {
+            width: 2px;
+            height: 30px;
+            background: #667eea;
+            margin: 0 auto;
+        }
+
+        .back-btn {
+            padding: 10px 20px;
+            background: #6b7280;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .back-btn:hover {
+            background: #4b5563;
+        }
+
+        .notice-item {
+            padding: 20px;
+            border-left: 4px solid #667eea;
+            background: #f9fafb;
+            margin-bottom: 15px;
+            border-radius: 8px;
+        }
+
+        .notice-item h3 {
+            color: #1f2937;
+            margin-bottom: 10px;
+        }
+
+        .notice-item p {
+            color: #6b7280;
+            line-height: 1.6;
+        }
+
+        .notice-date {
+            font-size: 13px;
+            color: #9ca3af;
+            margin-top: 10px;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-tabs {
+                flex-direction: column;
+            }
+
+            .tree-node {
+                min-width: 150px;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo-section">
+            <div class="logo">पथ</div>
+            <div class="title-section">
+                <h1>पथरी शनिश्चरे नगरपालिका</h1>
+                <p>न बडा कार्यालय, मोरङ - नागरिक व्यवस्थापन प्रणाली</p>
+            </div>
+        </div>
+        <div class="user-section">
+            <div>
+                <div style="font-weight: bold; text-align: right;">वडा अधिकारी</div>
+                <div style="font-size: 13px; color: #666;">वडा नं. १</div>
+            </div>
+            <div class="user-avatar">WA</div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="nav-tabs">
+            <button class="tab active" onclick="showTab('dashboard')">📊 ड्यासबोर्ड</button>
+            <button class="tab" onclick="showTab('households')">🏠 घरपरिवार</button>
+            <button class="tab" onclick="showTab('notices')">📢 सूचनाहरू</button>
+            <button class="tab" onclick="showTab('messages')">✉️ सन्देश</button>
+        </div>
+
+        <!-- Dashboard -->
+        <div id="dashboard" class="content active">
+            <div class="dashboard-grid">
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: #dbeafe; color: #1e40af;">🏠</div>
+                    <h3>कुल घरधुरी</h3>
+                    <div class="number">1,247</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: #dcfce7; color: #15803d;">👥</div>
+                    <h3>कुल जनसंख्या</h3>
+                    <div class="number">5,892</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: #fef3c7; color: #b45309;">👨</div>
+                    <h3>पुरुष</h3>
+                    <div class="number">2,945</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: #fce7f3; color: #be185d;">👩</div>
+                    <h3>महिला</h3>
+                    <div class="number">2,947</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: #e0e7ff; color: #4338ca;">👴</div>
+                    <h3>ज्येष्ठ नागरिक</h3>
+                    <div class="number">342</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: #fef2f2; color: #dc2626;">♿</div>
+                    <h3>अपाङ्गता भएका</h3>
+                    <div class="number">89</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>हालसालै दर्ता भएका परिवार</h2>
+                <div class="household-list">
+                    <div class="household-item" onclick="showFamily(1)">
+                        <div class="household-info">
+                            <h3>राम बहादुर लिम्बु</h3>
+                            <p>टोल: सुनकोशी, घर नं: १२३</p>
+                        </div>
+                        <div class="badge members">६ सदस्य</div>
+                    </div>
+                    <div class="household-item" onclick="showFamily(2)">
+                        <div class="household-info">
+                            <h3>कृष्ण प्रसाद शर्मा</h3>
+                            <p>टोल: महादेव, घर नं: ४५</p>
+                        </div>
+                        <div class="badge members">४ सदस्य</div>
+                    </div>
+                    <div class="household-item" onclick="showFamily(3)">
+                        <div class="household-info">
+                            <h3>सीता देवी यादव</h3>
+                            <p>टोल: कालिका, घर नं: ७८</p>
+                        </div>
+                        <div class="badge members">५ सदस्य</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Households -->
+        <div id="households" class="content">
+            <div class="card">
+                <h2>घरपरिवार सूची</h2>
+                <input type="text" class="search-box" placeholder="🔍 नाम, घर नं, वा टोलले खोज्नुहोस्...">
+                <div class="household-list">
+                    <div class="household-item" onclick="showFamily(1)">
+                        <div class="household-info">
+                            <h3>राम बहादुर लिम्बु</h3>
+                            <p>टोल: सुनकोशी, घर नं: १२३ | सम्पर्क: ९८४१२३४५६७</p>
+                        </div>
+                        <div class="badge members">६ सदस्य</div>
+                    </div>
+                    <div class="household-item" onclick="showFamily(2)">
+                        <div class="household-info">
+                            <h3>कृष्ण प्रसाद शर्मा</h3>
+                            <p>टोल: महादेव, घर नं: ४५ | सम्पर्क: ९८४७६५४३२१</p>
+                        </div>
+                        <div class="badge members">४ सदस्य</div>
+                    </div>
+                    <div class="household-item" onclick="showFamily(3)">
+                        <div class="household-info">
+                            <h3>सीता देवी यादव</h3>
+                            <p>टोल: कालिका, घर नं: ७८ | सम्पर्क: ९८४९८७६५४३</p>
+                        </div>
+                        <div class="badge members">५ सदस्य</div>
+                    </div>
+                    <div class="household-item" onclick="showFamily(4)">
+                        <div class="household-info">
+                            <h3>लक्ष्मी प्रसाद राई</h3>
+                            <p>टोल: सुनकोशी, घर नं: २३४ | सम्पर्क: ९८४३३३२२२१</p>
+                        </div>
+                        <div class="badge members">७ सदस्य</div>
+                    </div>
+                    <div class="household-item" onclick="showFamily(5)">
+                        <div class="household-info">
+                            <h3>गीता कुमारी थापा</h3>
+                            <p>टोल: महादेव, घर नं: ५६ | सम्पर्क: ९८४५५५६६६७</p>
+                        </div>
+                        <div class="badge members">३ सदस्य</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notices -->
+        <div id="notices" class="content">
+            <div class="card">
+                <h2>सूचनाहरू र घोषणाहरू</h2>
+                <div class="notice-item">
+                    <h3>🎉 सामुदायिक सरसफाई कार्यक्रम</h3>
+                    <p>आगामी शनिबार बिहान ७ बजे वडा क्षेत्रमा सामुदायिक सरसफाई कार्यक्रम हुने भएकोले सबै नागरिकहरूको सहभागिता अपेक्षित छ। कृपया आफ्नो घर अगाडी सफाई गर्नुहोस् र फोहोर संकलन गर्नुहोस्।</p>
+                    <div class="notice-date">📅 प्रकाशित: २०८१ कार्तिक १५ | 👤 वडा अधिकारी</div>
+                </div>
+                <div class="notice-item">
+                    <h3>💉 निःशुल्क खोप अभियान</h3>
+                    <p>५ वर्ष मुनिका बालबालिकाहरूको लागि निःशुल्क खोप अभियान यस वडा कार्यालयमा आयोजना हुने छ। मिति: कार्तिक २० गते, समय: बिहान १० बजे देखि दिउँसो ३ बजे सम्म।</p>
+                    <div class="notice-date">📅 प्रकाशित: २०८१ कार्तिक १२ | 👤 स्वास्थ्य शाखा</div>
+                </div>
+                <div class="notice-item">
+                    <h3>📋 नागरिकता विवरण अद्यावधिक गर्नुहोस्</h3>
+                    <p>सबै परिवारहरूलाई आफ्नो नागरिकता विवरण र परिवार विवरण अद्यावधिक गर्न अनुरोध गरिएको छ। यदि तपाईंको विवरणमा कुनै परिवर्तन भएको छ भने कृपया वडा कार्यालयमा सम्पर्क गर्नुहोस्।</p>
+                    <div class="notice-date">📅 प्रकाशित: २०८१ कार्तिक ८ | 👤 वडा सचिव</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Messages -->
+        <div id="messages" class="content">
+            <div class="card">
+                <h2>सन्देश पठाउनुहोस्</h2>
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 5px; font-weight: 600;">प्राप्तकर्ता चयन गर्नुहोस्:</label>
+                    <select style="width: 100%; padding: 12px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 14px;">
+                        <option>सम्पूर्ण वडा</option>
+                        <option>सुनकोशी टोल</option>
+                        <option>महादेव टोल</option>
+                        <option>कालिका टोल</option>
+                        <option>ज्येष्ठ नागरिकहरू</option>
+                        <option>५ वर्ष मुनिका बच्चा भएका परिवार</option>
+                    </select>
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 5px; font-weight: 600;">सन्देश:</label>
+                    <textarea style="width: 100%; padding: 12px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 14px; min-height: 150px;" placeholder="यहाँ आफ्नो सन्देश लेख्नुहोस्..."></textarea>
+                </div>
+                <button style="padding: 12px 30px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: 600;">📤 सन्देश पठाउनुहोस्</button>
+            </div>
+        </div>
+
+        <!-- Family Detail View (Hidden by default) -->
+        <div id="familyDetail" class="content">
+            <button class="back-btn" onclick="backToList()">← पछाडि फर्कनुहोस्</button>
+            <div class="card">
+                <h2 id="familyTitle">परिवार विवरण</h2>
+                <div id="familyTree" class="family-tree"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mock Data
+        const families = {
+            1: {
+                householder: 'राम बहादुर लिम्बु',
+                tole: 'सुनकोशी',
+                houseNo: '१२३',
+                members: [
+                    { name: 'राम बहादुर लिम्बु', role: 'घरमुली', relation: 'आफै', age: '४५', gender: 'पुरुष', occupation: 'व्यवसाय', education: 'स्नातक' },
+                    { name: 'सीता लिम्बु', role: 'पति/पत्नी', relation: 'श्रीमती', age: '४२', gender: 'महिला', occupation: 'गृहिणी', education: 'माध्यमिक' },
+                    { name: 'अनिल लिम्बु', role: 'सन्तान', relation: 'छोरा', age: '२०', gender: 'पुरुष', occupation: 'विद्यार्थी', education: 'स्नातक तह' },
+                    { name: 'अनिता लिम्बु', role: 'सन्तान', relation: 'छोरी', age: '१८', gender: 'महिला', occupation: 'विद्यार्थी', education: 'माध्यमिक तह' },
+                    { name: 'सुनिल लिम्बु', role: 'सन्तान', relation: 'छोरा', age: '१५', gender: 'पुरुष', occupation: 'विद्यार्थी', education: 'आधारभूत तह' },
+                    { name: 'राजु लिम्बु', role: 'सन्तान', relation: 'छोरा', age: '१२', gender: 'पुरुष', occupation: 'विद्यार्थी', education: 'आधारभूत तह' }
+                ]
+            },
+            2: {
+                householder: 'कृष्ण प्रसाद शर्मा',
+                tole: 'महादेव',
+                houseNo: '४५',
+                members: [
+                    { name: 'कृष्ण प्रसाद शर्मा', role: 'घरमुली', relation: 'आफै', age: '५२', gender: 'पुरुष', occupation: 'शिक्षक', education: 'स्नातकोत्तर' },
+                    { name: 'गीता शर्मा', role: 'पति/पत्नी', relation: 'श्रीमती', age: '४८', gender: 'महिला', occupation: 'नर्स', education: 'स्नातक' },
+                    { name: 'प्रिया शर्मा', role: 'सन्तान', relation: 'छोरी', age: '२३', gender: 'महिला', occupation: 'इन्जिनियर', education: 'स्नातक' },
+                    { name: 'राज शर्मा', role: 'सन्तान', relation: 'छोरा', age: '२०', gender: 'पुरुष', occupation: 'विद्यार्थी', education: 'स्नातक तह' }
+                ]
+            },
+            3: {
+                householder: 'सीता देवी यादव',
+                tole: 'कालिका',
+                houseNo: '७८',
+                members: [
+                    { name: 'सीता देवी यादव', role: 'घरमुली', relation: 'आफै', age: '३८', gender: 'महिला', occupation: 'व्यवसाय', education: 'माध्यमिक' },
+                    { name: 'राजेश यादव', role: 'पति/पत्नी', relation: 'श्रीमान्', age: '४२', gender: 'पुरुष', occupation: 'किसान', education: 'माध्यमिक' },
+                    { name: 'मनिषा यादव', role: 'सन्तान', relation: 'छोरी', age: '१६', gender: 'महिला', occupation: 'विद्यार्थी', education: 'माध्यमिक तह' },
+                    { name: 'रोहित यादव', role: 'सन्तान', relation: 'छोरा', age: '१३', gender: 'पुरुष', occupation: 'विद्यार्थी', education: 'आधारभूत तह' },
+                    { name: 'सरिता यादव', role: 'सन्तान', relation: 'छोरी', age: '१०', gender: 'महिला', occupation: 'विद्यार्थी', education: 'आधारभूत तह' }
+                ]
+            },
+            4: {
+                householder: 'लक्ष्मी प्रसाद राई',
+                tole: 'सुनकोशी',
+                houseNo: '२३४',
+                members: [
+                    { name: 'लक्ष्मी प्रसाद राई', role: 'घरमुली', relation: 'आफै', age: '६२', gender: 'पुरुष', occupation: 'सेवानिवृत्त', education: 'स्नातक' },
+                    { name: 'माया राई', role: 'पति/पत्नी', relation: 'श्रीमती', age: '५८', gender: 'महिला', occupation: 'गृहिणी', education: 'माध्यमिक' },
+                    { name: 'दिपक राई', role: 'सन्तान', relation: 'छोरा', age: '३५', gender: 'पुरुष', occupation: 'डाक्टर', education: 'स्नातकोत्तर' },
+                    { name: 'पूजा राई', role: 'बुहारी', relation: 'बुहारी', age: '३२', gender: 'महिला', occupation: 'शिक्षिका', education: 'स्नातक' },
+                    { name: 'आरव राई', role: 'नाति', relation: 'नाति', age: '८', gender: 'पुरुष', occupation: 'विद्यार्थी', education: 'आधारभूत तह' },
+                    { name: 'आराध्या राई', role: 'नातिनी', relation: 'नातिनी', age: '५', gender: 'महिला', occupation: 'विद्यार्थी', education: 'पूर्व प्राथमिक' },
+                    { name: 'दिव्या राई', role: 'सन्तान', relation: 'छोरी', age: '३०', gender: 'महिला', occupation: 'व्यवसायी', education: 'स्नातक' }
+                ]
+            },
+            5: {
+                householder: 'गीता कुमारी थापा',
+                tole: 'महादेव',
+                houseNo: '५६',
+                members: [
+                    { name: 'गीता कुमारी थापा', role: 'घरमुली', relation: 'आफै', age: '३५', gender: 'महिला', occupation: 'वकिल', education: 'स्नातकोत्तर' },
+                    { name: 'सुरेश थापा', role: 'पति/पत्नी', relation: 'श्रीमान्', age: '३८', gender: 'पुरुष', occupation: 'इन्जिनियर', education: 'स्नातकोत्तर' },
+                    { name: 'आयुष थापा', role: 'सन्तान', relation: 'छोरा', age: '१०', gender: 'पुरुष', occupation: 'विद्यार्थी', education: 'आधारभूत तह' }
+                ]
+            }
+        };
+
+        function showTab(tabName) {
+            // Hide all contents
+            const contents = document.querySelectorAll('.content');
+            contents.forEach(c => c.classList.remove('active'));
+            
+            // Remove active from all tabs
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(t => t.classList.remove('active'));
+            
+            // Show selected content
+            document.getElementById(tabName).classList.add('active');
+            
+            // Activate clicked tab
+            event.target.classList.add('active');
+        }
+
+        function showFamily(familyId) {
+            const family = families[familyId];
+            if (!family) return;
+
+            // Hide other tabs
+            document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
+            document.getElementById('familyDetail').classList.add('active');
+
+            // Update title
+            document.getElementById('familyTitle').textContent = `${family.householder} को परिवार - ${family.tole} टोल, घर नं: ${family.houseNo}`;
+
+            // Generate family tree
+            const treeHTML = generateFamilyTree(family.members);
+            document.getElementById('familyTree').innerHTML = treeHTML;
+        }
+
+        function generateFamilyTree(members) {
+            const head = members.find(m => m.role === 'घरमुली');
+            const spouse = members.find(m => m.role === 'पति/पत्नी');
+            const children = members.filter(m => m.role === 'सन्तान');
+            const others = members.filter(m => !['घरमुली', 'पति/पत्नी', 'सन्तान'].includes(m.role));
+
+            let html = '<div class="tree">';
+            
+            // Head
+            if (head) {
+                html += createNode(head, 'head');
+                if (spouse || children.length > 0) {
+                    html += '<div class="tree-connector"></div>';
+                }
+            }
+
+            // Spouse
+            if (spouse) {
+                html += createNode(spouse, 'spouse');
+                if (children.length > 0) {
+                    html += '<div class="tree-connector"></div>';
+                }
+            }
+
+            // Children
+            if (children.length > 0) {
+                html += '<div class="children-row">';
+                children.forEach(child => {
+                    html += createNode(child, 'child');
+                });
+                html += '</div>';
+            }
+
+            // Other members (grandchildren, etc.)
+            if (others.length > 0) {
+                html += '<div class="tree-connector"></div>';
+                html += '<div class="children-row">';
+                others.forEach(other => {
+                    html += createNode(other, 'child');
+                });
+                html += '</div>';
+            }
+
+            html += '</div>';
+            return html;
+        }
+
+        function createNode(member, type) {
+            const initial = member.name.charAt(0);
+            const genderEmoji = member.gender === 'पुरुष' ? '👨' : '👩';
+            
+            return `
+                <div class="tree-node ${type}">
+                    <div class="node-photo">${initial}</div>
+                    <div class="node-name">${member.name}</div>
+                    <div class="node-role">${genderEmoji} ${member.relation}</div>
+                    <div class="node-details">
+                        उमेर: ${member.age} वर्ष<br>
+                        पेशा: ${member.occupation}<br>
+                        शिक्षा: ${member.education}
+                    </div>
+                </div>
+            `;
+        }
+
+        function backToList() {
+            document.getElementById('familyDetail').classList.remove('active');
+            document.getElementById('households').classList.add('active');
+            
+            // Update active tab
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab')[1].classList.add('active');
+        }
+    </script>
+</body>
+</html>

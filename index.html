@@ -531,22 +531,94 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
         }
+
+                /* Navigation Buttons in Header */
+        .nav-buttons {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            text-decoration: none;
+            color: white;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .user-btn {
+            background: linear-gradient(135deg, #10b981, #059669);
+        }
+
+        .admin-btn {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+        }
+
+        .user-btn:hover {
+            background: linear-gradient(135deg, #0d9c70, #047857);
+        }
+
+        .admin-btn:hover {
+            background: linear-gradient(135deg, #e68a00, #b91c1c);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+            .nav-btn, .login-btn {
+                width: 100%;
+                text-align: center;
+            }
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            .logo-section {
+                margin-bottom: 15px;
+            }
+        }
     </style>
 </head>
 <body>
     <!-- Header -->
     <div class="header">
-        <div class="header-content">
-            <div class="logo-section">
-                <div class="logo">पथ</div>
-                <div class="title-section">
-                    <h1>पथरी शनिश्चरे नगरपालिका</h1>
-                    <p>वडा नं. १, मोरङ - नागरिक सूचना प्रणाली</p>
-                </div>
+    <div class="header-content">
+        <div class="logo-section">
+            <div class="logo">पथ</div>
+            <div class="title-section">
+                <h1>पथरी शनिश्चरे नगरपालिका</h1>
+                <p>वडा नं. १, मोरङ - नागरिक सूचना प्रणाली</p>
             </div>
-            <button class="login-btn" onclick="openModal()">🔐 लगइन गर्नुहोस्</button>
+        </div>
+
+        <div class="nav-buttons">
+            <a href="user.html" class="nav-btn user-btn" target="_blank">
+                नागरिक ड्यासबोर्ड
+            </a>
+            <a href="admin.html" class="nav-btn admin-btn" target="_blank">
+                प्रशासक ड्यासबोर्ड
+            </a>
+            <button class="login-btn" onclick="openModal()">लगइन गर्नुहोस्</button>
         </div>
     </div>
+</div>
 
     <!-- Hero Section -->
     <div class="hero">
